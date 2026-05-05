@@ -1,0 +1,13 @@
+[Unit]
+Description=My Web App
+After=network.target
+
+[Service]
+User=veronika
+WorkingDirectory=/home/veronika/mywebapp
+ExecStart=/usr/bin/node /home/veronika/mywebapp/app.js
+Restart=always
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
