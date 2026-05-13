@@ -41,7 +41,7 @@ echo "=== GRADEBOOK FILE ==="
 echo "7" | sudo tee /home/student/gradebook
 
 echo "=== DISABLE DEFAULT USER ==="
-sudo passwd -l veronika || true
+# sudo passwd -l veronika || true
 
 
 echo "=== DONE ==="
