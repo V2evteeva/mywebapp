@@ -104,3 +104,46 @@ sudo systemctl status nginx
 ## Висновок
 
 Було реалізовано Node.js веб-застосунок, інтеграцію з PostgreSQL, systemd сервіс, nginx reverse proxy, систему користувачів та автоматизацію розгортання через bash-скрипт.
+
+## Docker Compose
+
+### Запуск проєкту через Docker Compose
+
+```bash
+docker compose up -d --build
+```
+
+### Зупинка контейнерів
+
+```bash
+docker compose down
+```
+
+### Перевірка контейнерів
+
+```bash
+docker compose ps
+```
+
+### Docker сервіси
+
+- web — Node.js застосунок
+- nginx — reverse proxy
+- db — PostgreSQL база даних
+
+### Persistence
+
+PostgreSQL data зберігаються у Docker Volume.
+
+Дані переживають:
+- restart контейнерів
+- docker compose down
+- reboot системи
+
+### Перевірка після перезапуску
+
+```bash
+curl http://localhost/tasks
+```
+
+Очікувано: раніше створені записи залишаються доступними.
