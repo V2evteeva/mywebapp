@@ -104,3 +104,6 @@ sudo systemctl status nginx
 ## Висновок
 
 Було реалізовано Node.js веб-застосунок, інтеграцію з PostgreSQL, systemd сервіс, nginx reverse proxy, систему користувачів та автоматизацію розгортання через bash-скрипт.
+
+
+## Successful PR demo
