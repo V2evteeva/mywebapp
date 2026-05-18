@@ -147,3 +147,5 @@ curl http://localhost/tasks
 ```
 
 Очікувано: раніше створені записи залишаються доступними.
+
+## CI/CD implemented successfully
