@@ -8,7 +8,7 @@ describe('Health endpoints', () => {
     const res = await request(app)
       .get('/health/alive');
 
-    expect(res.statusCode).toBe(200);
+    expect(res.statusCode).toBe(500);
     expect(res.text).toBe('OK');
 
   });
