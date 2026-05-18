@@ -1,0 +1,29 @@
+name: Deploy
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+
+  deploy:
+
+    runs-on: self-hosted
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Docker compose down
+        run: docker compose down || true
+
+      - name: Docker compose up
+        run: docker compose up -d --build
+
+      - name: Wait
+        run: sleep 15
+
+      - name: Verify app
+        run: curl http://localhost/health/alive
