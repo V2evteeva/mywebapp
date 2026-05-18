@@ -3,12 +3,12 @@ name: CI
 on:
   push:
     branches:
-      - main
       - lab3-ci-cd
+      - failed-demo
 
   pull_request:
     branches:
-      - main
+      - lab3-ci-cd
 
 jobs:
 
