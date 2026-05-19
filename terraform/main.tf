@@ -44,6 +44,7 @@ resource "libvirt_domain" "worker" {
 
   disk {
     volume_id = libvirt_volume.ubuntu-qcow2.id
+    scsi      = true
   }
 }
 
@@ -62,5 +63,6 @@ resource "libvirt_domain" "db" {
 
   disk {
     volume_id = libvirt_volume.ubuntu-qcow2.id
+    scsi      = true
   }
 }
