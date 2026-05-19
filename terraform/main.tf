@@ -1,7 +1,8 @@
 terraform {
   required_providers {
     libvirt = {
-      source = "dmacvicar/libvirt"
+      source  = "dmacvicar/libvirt"
+      version = "0.7.6"
     }
   }
 }
@@ -10,15 +11,23 @@ provider "libvirt" {
   uri = "qemu:///system"
 }
 
-resource "libvirt_volume" "ubuntu" {
-  name   = "ubuntu.qcow2"
-  source = "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amr64.img"
-  format = "qcow2"
+resource "libvirt_volume" "ubuntu-qcow2" {
+  name = "ubuntu-arm64.qcow2"
+  pool = "default"
+
+  source = "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-arm64.img"
 }
 
 resource "libvirt_cloudinit_disk" "commoninit" {
-  name      = "commoninit.iso"
+  name = "commoninit.iso"
+  pool = "default"
+
   user_data = file("${path.module}/cloud-init.yaml")
+
+  meta_data = <<EOF
+instance-id: iid-local01
+local-hostname: ubuntu
+EOF
 }
 
 resource "libvirt_domain" "worker" {
@@ -33,7 +42,7 @@ resource "libvirt_domain" "worker" {
   }
 
   disk {
-    volume_id = libvirt_volume.ubuntu.id
+    volume_id = libvirt_volume.ubuntu-qcow2.id
   }
 }
 
@@ -49,6 +58,6 @@ resource "libvirt_domain" "db" {
   }
 
   disk {
-    volume_id = libvirt_volume.ubuntu.id
+    volume_id = libvirt_volume.ubuntu-qcow2.id
   }
 }
