@@ -12,10 +12,9 @@ provider "libvirt" {
 }
 
 resource "libvirt_volume" "ubuntu_qcow2" {
-  name = "ubuntu-arm64.qcow2"
-  pool = "default"
-
-  source = "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-arm64.img"
+  name   = "ubuntu-arm64.qcow2"
+  pool   = "default"
+  source = "/home/veronika/vm-images/ubuntu-arm64.qcow2"
 }
 
 resource "libvirt_domain" "worker" {
