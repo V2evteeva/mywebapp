@@ -11,33 +11,20 @@ provider "libvirt" {
   uri = "qemu:///system"
 }
 
-resource "libvirt_volume" "ubuntu-qcow2" {
+resource "libvirt_volume" "ubuntu_qcow2" {
   name = "ubuntu-arm64.qcow2"
   pool = "default"
 
   source = "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-arm64.img"
 }
 
-resource "libvirt_cloudinit_disk" "commoninit" {
-  name = "commoninit.iso"
-  pool = "default"
-
-  user_data = file("${path.module}/cloud-init.yaml")
-
-  meta_data = <<EOF
-instance-id: iid-local01
-local-hostname: ubuntu
-EOF
-}
-
 resource "libvirt_domain" "worker" {
   name    = "worker-vm"
   memory  = 2048
   vcpu    = 2
+
   type    = "qemu"
   machine = "virt"
-
-  cloudinit = libvirt_cloudinit_disk.commoninit.id
 
   qemu_agent = false
 
@@ -46,7 +33,7 @@ resource "libvirt_domain" "worker" {
   }
 
   disk {
-    volume_id = libvirt_volume.ubuntu-qcow2.id
+    volume_id = libvirt_volume.ubuntu_qcow2.id
     scsi      = true
   }
 
@@ -61,10 +48,9 @@ resource "libvirt_domain" "db" {
   name    = "db-vm"
   memory  = 2048
   vcpu    = 2
+
   type    = "qemu"
   machine = "virt"
-
-  cloudinit = libvirt_cloudinit_disk.commoninit.id
 
   qemu_agent = false
 
@@ -73,7 +59,7 @@ resource "libvirt_domain" "db" {
   }
 
   disk {
-    volume_id = libvirt_volume.ubuntu-qcow2.id
+    volume_id = libvirt_volume.ubuntu_qcow2.id
     scsi      = true
   }
 

@@ -1,7 +1,7 @@
 output "worker_vm" {
-  value = libvirt_domain.worker.name
+  value = "worker-vm"
 }
 
 output "db_vm" {
-  value = libvirt_domain.db.name
+  value = "db-vm"
 }
