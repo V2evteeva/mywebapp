@@ -12,7 +12,7 @@ provider "libvirt" {
 
 resource "libvirt_volume" "ubuntu" {
   name   = "ubuntu.qcow2"
-  source = "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img"
+  source = "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amr64.img"
   format = "qcow2"
 }
 
