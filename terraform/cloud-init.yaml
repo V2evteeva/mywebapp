@@ -1,0 +1,15 @@
+#cloud-config
+
+users:
+  - name: ansible
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQChihESx+jevyfh+BExymESmv4l/lbWYxTCFGcO1IKFDFaJygkwXVkhNYNZ/JrDboLHOk1AEdy92e01AvD72T7ZTnY1oC8W+s9WOWgR5mvvCEZm9oshNLfYkmL8yCz7YkDd37rWktwuJFEBUX4xkJsG/RrKgnsjh00IwfwcK02JM6DkeY+L1EBy+wO+Fd4QMdBxjkG1sV1luyRD6U0KBmvYb/MxMo/XRNp9k3pCpgd3gV059fcKF0qapO5ah43yzuayNTCjrNl71/iXAnkYcbdDmnHezPi7jyAFFsH2wOigWB9jeWXiKbD9ITLdCH46qCTuK9CPXi9vKCLBjaGiveH9LmrQoD+cGkfDwL5PL754W0HK6JyeQk4oHdFfza6N1ULg5+6jLY9SocBx3nPma9t654vTlUMSvZeO5bPPTS81/qz3D8oHaj2AJoEQF14fZ3xqUWegpTRn4cZBVUSWAiBGracYE4QvsaqbUEU3EcBG9W1czanqco65r/Wg5QkkRj8= veronika@veronika-Parallels-ARM-Virtual-Machine
+
+  - name: teacher
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    plain_text_passwd: 12345678
+    lock_passwd: false
+
+ssh_pwauth: true
+disable_root: false
