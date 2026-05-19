@@ -39,14 +39,21 @@ resource "libvirt_domain" "worker" {
 
   cloudinit = libvirt_cloudinit_disk.commoninit.id
 
+  qemu_agent = false
+
   network_interface {
     network_name = "default"
   }
 
   disk {
     volume_id = libvirt_volume.ubuntu-qcow2.id
-
     scsi      = true
+  }
+
+  console {
+    type        = "pty"
+    target_type = "serial"
+    target_port = "0"
   }
 }
 
@@ -57,8 +64,9 @@ resource "libvirt_domain" "db" {
   type    = "qemu"
   machine = "virt"
 
-
   cloudinit = libvirt_cloudinit_disk.commoninit.id
+
+  qemu_agent = false
 
   network_interface {
     network_name = "default"
@@ -66,7 +74,12 @@ resource "libvirt_domain" "db" {
 
   disk {
     volume_id = libvirt_volume.ubuntu-qcow2.id
-
     scsi      = true
+  }
+
+  console {
+    type        = "pty"
+    target_type = "serial"
+    target_port = "0"
   }
 }
