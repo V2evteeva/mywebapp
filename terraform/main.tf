@@ -34,6 +34,7 @@ resource "libvirt_domain" "worker" {
   name   = "worker-vm"
   memory = 2048
   vcpu   = 2
+  type   = "qemu"
 
   cloudinit = libvirt_cloudinit_disk.commoninit.id
 
@@ -50,6 +51,8 @@ resource "libvirt_domain" "db" {
   name   = "db-vm"
   memory = 2048
   vcpu   = 2
+  type   = "qemu"
+
 
   cloudinit = libvirt_cloudinit_disk.commoninit.id
 
