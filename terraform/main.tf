@@ -31,10 +31,11 @@ EOF
 }
 
 resource "libvirt_domain" "worker" {
-  name   = "worker-vm"
-  memory = 2048
-  vcpu   = 2
-  type   = "qemu"
+  name    = "worker-vm"
+  memory  = 2048
+  vcpu    = 2
+  type    = "qemu"
+  machine = "virt"
 
   cloudinit = libvirt_cloudinit_disk.commoninit.id
 
@@ -44,15 +45,17 @@ resource "libvirt_domain" "worker" {
 
   disk {
     volume_id = libvirt_volume.ubuntu-qcow2.id
+
     scsi      = true
   }
 }
 
 resource "libvirt_domain" "db" {
-  name   = "db-vm"
-  memory = 2048
-  vcpu   = 2
-  type   = "qemu"
+  name    = "db-vm"
+  memory  = 2048
+  vcpu    = 2
+  type    = "qemu"
+  machine = "virt"
 
 
   cloudinit = libvirt_cloudinit_disk.commoninit.id
@@ -63,6 +66,7 @@ resource "libvirt_domain" "db" {
 
   disk {
     volume_id = libvirt_volume.ubuntu-qcow2.id
+
     scsi      = true
   }
 }
