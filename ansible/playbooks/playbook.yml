@@ -1,0 +1,41 @@
+- name: Configure worker VM
+  hosts: workers
+  become: yes
+
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+
+    - name: Copy nginx config
+      template:
+        src: ../templates/nginx.conf.j2
+        dest: /etc/nginx/sites-available/default
+
+    - name: Restart nginx
+      service:
+        name: nginx
+        state: restarted
+
+    - name: Copy mywebapp service
+      copy:
+        src: ../Files/mywebapp.service
+        dest: /etc/systemd/system/mywebapp.service
+
+- name: Configure db VM
+  hosts: db
+  become: yes
+
+  tasks:
+    - name: Install PostgreSQL
+      apt:
+        name: postgresql
+        state: present
+        update_cache: yes
+
+    - name: Copy init.sql
+      copy:
+        src: ../Files/init.sql
+        dest: /tmp/init.sql
