@@ -11,29 +11,33 @@ provider "libvirt" {
   uri = "qemu:///system"
 }
 
-resource "libvirt_volume" "ubuntu_qcow2" {
-  name   = "ubuntu-arm64.qcow2"
+resource "libvirt_volume" "worker_disk" {
+  name   = "ubuntu-arm64-worker.qcow2"
   pool   = "default"
-  source = "/home/veronika/vm-images/ubuntu-arm64.qcow2"
+  source = "/var/lib/libvirt/images/ubuntu-arm64-worker.qcow2"
+}
+
+resource "libvirt_volume" "db_disk" {
+  name   = "ubuntu-arm64-db.qcow2"
+  pool   = "default"
+  source = "/var/lib/libvirt/images/ubuntu-arm64-db.qcow2"
 }
 
 resource "libvirt_domain" "worker" {
-  name    = "worker-vm"
-  memory  = 2048
-  vcpu    = 2
+  name   = "worker-vm"
+  memory = 2048
+  vcpu   = 2
 
-  type    = "qemu"
+  arch    = "aarch64"
   machine = "virt"
-
-  qemu_agent = false
+  type    = "qemu"
 
   network_interface {
     network_name = "default"
   }
 
   disk {
-    volume_id = libvirt_volume.ubuntu_qcow2.id
-    scsi      = true
+    volume_id = libvirt_volume.worker_disk.id
   }
 
   console {
@@ -44,22 +48,20 @@ resource "libvirt_domain" "worker" {
 }
 
 resource "libvirt_domain" "db" {
-  name    = "db-vm"
-  memory  = 2048
-  vcpu    = 2
+  name   = "db-vm"
+  memory = 2048
+  vcpu   = 2
 
-  type    = "qemu"
+  arch    = "aarch64"
   machine = "virt"
-
-  qemu_agent = false
+  type    = "qemu"
 
   network_interface {
     network_name = "default"
   }
 
   disk {
-    volume_id = libvirt_volume.ubuntu_qcow2.id
-    scsi      = true
+    volume_id = libvirt_volume.db_disk.id
   }
 
   console {
