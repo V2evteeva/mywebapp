@@ -11,5 +11,13 @@ users:
     plain_text_passwd: 12345678
     lock_passwd: false
 
+  - name: app
+    lock_passwd: true
+
+  - name: operator
+    sudo: ALL=(ALL) NOPASSWD:/bin/systemctl start mywebapp,/bin/systemctl stop mywebapp,/bin/systemctl restart mywebapp,/bin/systemctl status mywebapp,/bin/systemctl reload nginx
+    plain_text_passwd: 123456789
+    lock_passwd: false
+
 ssh_pwauth: true
 disable_root: false
